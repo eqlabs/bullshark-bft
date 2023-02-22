@@ -314,15 +314,8 @@ where
                         for certificate in &committed_sub_dag.certificates {
                             i+=1;
 
-                            #[cfg(not(feature = "benchmark"))]
                             if i % 5_000 == 0 {
                                 tracing::debug!("Committed {}", certificate.header);
-                            }
-
-                            #[cfg(feature = "benchmark")]
-                            for digest in certificate.header.payload.keys() {
-                                // NOTE: This log entry is used to compute performance.
-                                tracing::info!("Committed {} -> {:?}", certificate.header, digest);
                             }
 
                             commited_certificates.push(certificate.clone());

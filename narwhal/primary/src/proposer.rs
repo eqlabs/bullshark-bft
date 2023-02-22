@@ -164,12 +164,6 @@ impl Proposer {
         // Store the last header.
         self.proposer_store.write_last_proposed(&header)?;
 
-        #[cfg(feature = "benchmark")]
-        for digest in header.payload.keys() {
-            // NOTE: This log entry is used to compute performance.
-            info!("Created {} -> {:?}", header, digest);
-        }
-
         let num_of_included_digests = header.payload.len();
 
         // Send the new header to the `Core` that will broadcast and process it.
@@ -271,17 +265,6 @@ impl Proposer {
             let batch_inclusion_secs =
                 Duration::from_millis(header.created_at - created_at_timestamp).as_secs_f64();
             total_inclusion_secs += batch_inclusion_secs;
-
-            #[cfg(feature = "benchmark")]
-            {
-                // NOTE: This log entry is used to compute performance.
-                tracing::info!(
-                    "Batch {:?} from worker {} took {} seconds from creation to be included in a proposed header",
-                    _digest,
-                    _worker_id,
-                    batch_inclusion_secs
-                );
-            }
 
             self.metrics
                 .proposer_batch_latency

@@ -53,5 +53,4 @@ telemetry-subscribers = { path = "../../crates/telemetry-subscribers"}
 storage = { path = "../storage", package = "narwhal-storage" }
 
 [features]
-benchmark = []
 trace_transaction = []
