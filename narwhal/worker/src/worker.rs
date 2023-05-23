@@ -416,9 +416,6 @@ impl Worker {
             .worker(&self.primary_name, &self.id)
             .expect("Our public key or worker id is not in the worker cache")
             .transactions;
-        let address = address
-            .replace(0, |_protocol| Some(Protocol::Ip4(Ipv4Addr::UNSPECIFIED)))
-            .unwrap();
 
         let tx_server_handle = TxServer::spawn(
             address.clone(),
