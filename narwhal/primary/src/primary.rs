@@ -318,14 +318,14 @@ impl Primary {
                     network = n;
                     break;
                 }
-                Err(_) => {
+                Err(e) => {
                     retries_left -= 1;
 
                     if retries_left <= 0 {
                         panic!("Failed to initialize Network!");
                     }
                     error!(
-                        "Address {} should be available for the primary Narwhal service, retrying in one second",
+                        "Address {} should be available for the primary Narwhal service, retrying in one second (err: {e:?})",
                         addr
                     );
                     sleep(Duration::from_secs(1));
