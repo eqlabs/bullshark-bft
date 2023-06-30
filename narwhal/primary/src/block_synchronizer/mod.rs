@@ -8,10 +8,8 @@ use crate::{
     utils,
 };
 use anemo::PeerId;
-use anyhow::anyhow;
 use config::{AuthorityIdentifier, Committee, Parameters, WorkerCache, WorkerId};
 use crypto::{Hash, NetworkPublicKey};
-use fastcrypto::traits::ToFromBytes;
 use futures::{
     future::{join_all, BoxFuture},
     stream::FuturesUnordered,
@@ -751,8 +749,8 @@ impl BlockSynchronizer {
 
             let response_peer = match response
                 .peer_id()
-                .ok_or_else(|| anyhow!("missing peer_id"))
-                .and_then(|id| NetworkPublicKey::from_bytes(&id.0).map_err(|e| e.into()))
+                .ok_or_else(|| eyre::eyre!("missing peer_id"))
+                .and_then(|id| NetworkPublicKey::from_bytes(&id.0))
             {
                 Ok(peer) => peer,
                 Err(e) => {
@@ -861,8 +859,8 @@ impl BlockSynchronizer {
 
             let response_peer = match response
                 .peer_id()
-                .ok_or_else(|| anyhow!("missing peer_id"))
-                .and_then(|id| NetworkPublicKey::from_bytes(&id.0).map_err(|e| e.into()))
+                .ok_or_else(|| eyre::eyre!("missing peer_id"))
+                .and_then(|id| NetworkPublicKey::from_bytes(&id.0))
             {
                 Ok(peer) => peer,
                 Err(e) => {

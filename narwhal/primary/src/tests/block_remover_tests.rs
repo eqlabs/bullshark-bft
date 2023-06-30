@@ -5,7 +5,6 @@ use anemo::PeerId;
 use config::{Committee, WorkerId};
 use consensus::dag::Dag;
 use crypto::{Hash, PrivateKey};
-use fastcrypto::traits::KeyPair;
 use futures::future::join_all;
 use std::{borrow::Borrow, collections::HashMap, sync::Arc, time::Duration};
 use test_utils::CommitteeFixture;

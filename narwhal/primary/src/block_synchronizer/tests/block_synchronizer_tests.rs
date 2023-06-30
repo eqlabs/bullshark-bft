@@ -23,8 +23,6 @@ use types::{
     PayloadAvailabilityResponse, PreSubscribedBroadcastSender, PrimaryToPrimaryServer,
 };
 
-use fastcrypto::traits::KeyPair as _;
-
 use types::{Certificate, CertificateDigest};
 
 #[tokio::test]
@@ -40,7 +38,7 @@ async fn test_successful_headers_synchronization() {
     let author = fixture.authorities().next().unwrap();
     let primary = fixture.authorities().nth(1).unwrap();
     let id = primary.id();
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
 
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
     let (tx_commands, rx_block_synchronizer_commands) = test_utils::test_channel!(10);
@@ -191,7 +189,7 @@ async fn test_successful_payload_synchronization() {
     let author = fixture.authorities().next().unwrap();
     let primary = fixture.authorities().nth(1).unwrap();
     let id = primary.id();
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
 
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
     let (tx_commands, rx_block_synchronizer_commands) = test_utils::test_channel!(10);
@@ -378,7 +376,7 @@ async fn test_timeout_while_waiting_for_certificates() {
     let author = fixture.authorities().next().unwrap();
     let primary = fixture.authorities().nth(1).unwrap();
     let id = primary.id();
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
 
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
     let (tx_commands, rx_block_synchronizer_commands) = test_utils::test_channel!(10);
@@ -495,7 +493,7 @@ async fn test_reply_with_certificates_already_in_storage() {
     let author = fixture.authorities().next().unwrap();
     let primary = fixture.authorities().nth(1).unwrap();
     let authority_id = primary.id();
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
 
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
     let (_, rx_block_synchronizer_commands) = test_utils::test_channel!(10);
@@ -603,7 +601,7 @@ async fn test_reply_with_payload_already_in_storage() {
     let author = fixture.authorities().next().unwrap();
     let primary = fixture.authorities().nth(1).unwrap();
     let id = primary.id();
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
 
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
     let (_, rx_block_synchronizer_commands) = test_utils::test_channel!(10);
@@ -712,7 +710,7 @@ async fn test_reply_with_payload_already_in_storage_for_own_certificates() {
     let committee = fixture.committee();
     let worker_cache = fixture.worker_cache();
     let primary = fixture.authorities().next().unwrap();
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
 
     // AND make sure the key used for our "own" primary is the one that will
     // be used to create the headers.

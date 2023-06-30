@@ -5,7 +5,6 @@ use config::{AuthorityIdentifier, BlockSynchronizerParameters, Committee, Parame
 use consensus::consensus::ConsensusRound;
 use consensus::dag::Dag;
 use crypto::Hash;
-use fastcrypto::traits::KeyPair as _;
 use indexmap::IndexMap;
 use narwhal_primary as primary;
 use narwhal_primary::NUM_SHUTDOWN_RECEIVERS;

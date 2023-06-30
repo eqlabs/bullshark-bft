@@ -4,7 +4,6 @@ use crate::{temp_dir, CommitteeFixture};
 use config::{AuthorityIdentifier, Committee, Parameters, WorkerCache, WorkerId};
 use crypto::{KeyPair, NetworkKeyPair, PublicKey};
 use executor::SerializedTransaction;
-use fastcrypto::traits::KeyPair as _;
 use itertools::Itertools;
 use mysten_network::multiaddr::Multiaddr;
 use network::client::NetworkClient;

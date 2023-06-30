@@ -9,7 +9,6 @@ use consensus::dag::Dag;
 use consensus::Consensus;
 use crypto::{KeyPair, NetworkKeyPair};
 use executor::{get_restored_consensus_output, ExecutionState, Executor, SubscriberResult};
-use fastcrypto::traits::KeyPair as _;
 use network::client::NetworkClient;
 use primary::{NetworkModel, Primary, NUM_SHUTDOWN_RECEIVERS};
 use std::sync::Arc;

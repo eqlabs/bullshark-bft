@@ -15,7 +15,6 @@ use std::{array::TryFromSliceError, ops::Deref};
 use crate::{BlockError, BlockErrorKind, CertificateDigest, Transaction};
 use bytes::Bytes;
 use crypto::{Digest, PublicKey};
-use snarkvm_console::prelude::ToBytes;
 
 pub use narwhal::{
     collection_error::CollectionErrorType,
@@ -47,7 +46,7 @@ pub use narwhal::{
 impl From<PublicKey> for PublicKeyProto {
     fn from(pub_key: PublicKey) -> Self {
         PublicKeyProto {
-            bytes: Bytes::from(pub_key.to_bytes_le().unwrap().to_vec()),
+            bytes: Bytes::from(pub_key.to_bytes().to_vec()),
         }
     }
 }

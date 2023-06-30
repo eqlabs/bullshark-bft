@@ -6,7 +6,6 @@ use consensus::consensus::ConsensusRound;
 use consensus::dag::Dag;
 use consensus::utils::gc_round;
 use crypto::Hash;
-use fastcrypto::traits::KeyPair as _;
 use futures::{stream::FuturesUnordered, StreamExt};
 use itertools::Itertools;
 use network::client::NetworkClient;
@@ -29,7 +28,7 @@ async fn accept_certificates() {
     let committee = fixture.committee();
     let worker_cache = fixture.worker_cache();
     let primary = fixture.authorities().last().unwrap();
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
     let authority_id = primary.id();
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
     let genesis_certs = Certificate::genesis(&fixture.committee(), primary.keypair().private());
@@ -217,7 +216,7 @@ async fn synchronizer_recover_basic() {
     let worker_cache = fixture.worker_cache();
     let primary = fixture.authorities().last().unwrap();
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
     let name = primary.id();
     let genesis_certs = Certificate::genesis(&committee, primary.keypair().private());
 
@@ -325,7 +324,7 @@ async fn synchronizer_recover_partial_certs() {
     let worker_cache = fixture.worker_cache();
     let primary = fixture.authorities().last().unwrap();
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
     let name = primary.id();
     let genesis_certs = Certificate::genesis(&committee, primary.keypair().private());
 
@@ -438,7 +437,7 @@ async fn synchronizer_recover_previous_round() {
     let worker_cache = fixture.worker_cache();
     let primary = fixture.authorities().last().unwrap();
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
-    let network_key = primary.network_keypair().copy().private().0.to_bytes();
+    let network_key = primary.network_keypair().copy().private().to_bytes();
     let name = primary.id();
     let genesis_certs = Certificate::genesis(&committee, primary.keypair().private());
 

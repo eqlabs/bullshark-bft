@@ -7,7 +7,6 @@ use crate::common::create_db_stores;
 use crate::primary;
 use consensus::consensus::ConsensusRound;
 use crypto::KeyPair as DefinedKeyPair;
-use fastcrypto::traits::KeyPair;
 use network::client::NetworkClient;
 use primary::NUM_SHUTDOWN_RECEIVERS;
 use rand::{rngs::StdRng, SeedableRng};
@@ -30,7 +29,7 @@ async fn propose_header() {
     let keypair = primary.keypair().clone();
     let genesis_certs = Certificate::genesis(&committee, keypair.private());
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
-    let network_key = primary.network_keypair().private().0.to_bytes();
+    let network_key = primary.network_keypair().private().to_bytes();
     let id = primary.id();
     let signature_service = SignatureService::new(*primary.keypair().private());
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
@@ -147,7 +146,7 @@ async fn propose_header_failure() {
     let keypair = primary.keypair().clone();
     let genesis_certs = Certificate::genesis(&committee, keypair.private());
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
-    let network_key = primary.network_keypair().private().0.to_bytes();
+    let network_key = primary.network_keypair().private().to_bytes();
     let authority_id = primary.id();
     let signature_service = SignatureService::new(*primary.keypair().private());
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
@@ -266,7 +265,7 @@ async fn run_vote_aggregator_with_param(
     let worker_cache = fixture.worker_cache();
     let primary = fixture.authorities().last().unwrap();
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
-    let network_key = primary.network_keypair().private().0.to_bytes();
+    let network_key = primary.network_keypair().private().to_bytes();
     let id: AuthorityIdentifier = primary.id();
     let signature_service = SignatureService::new(*primary.keypair().private());
     let mut tx_shutdown = PreSubscribedBroadcastSender::new(NUM_SHUTDOWN_RECEIVERS);
@@ -387,7 +386,7 @@ async fn shutdown_core() {
     let keypair = primary.keypair().clone();
     let genesis_certs = Certificate::genesis(&committee, keypair.private());
     let client = NetworkClient::new_from_keypair(&primary.network_keypair());
-    let network_key = primary.network_keypair().private().0.to_bytes();
+    let network_key = primary.network_keypair().private().to_bytes();
     let id: AuthorityIdentifier = primary.id();
     let signature_service = SignatureService::new(*primary.keypair().private());
 

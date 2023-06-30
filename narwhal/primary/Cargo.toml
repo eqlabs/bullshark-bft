@@ -16,8 +16,10 @@ bcs = "0.1.4"
 bincode = "1.3.3"
 bytes = "1.3.0"
 config = { path = "../config", package = "narwhal-config" }
+eyre = "0.6"
 futures = "0.3.24"
 governor = "0.5.1"
+hex = "0.4.3"
 itertools = "0.10.5"
 once_cell = "1.16"
 parking_lot = "0.12.1"
@@ -29,9 +31,7 @@ tower = { version = "0.4.13", features = ["full"] }
 tracing = "0.1.36"
 tap = "1.0.1"
 
-
 consensus = { path = "../consensus", package = "narwhal-consensus" }
-fastcrypto.workspace = true
 crypto = { path = "../crypto", package = "narwhal-crypto" }
 network = { path = "../network", package = "narwhal-network" }
 types = { path = "../types", package = "narwhal-types" }

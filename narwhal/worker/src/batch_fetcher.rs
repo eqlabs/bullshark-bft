@@ -261,7 +261,6 @@ impl RequestBatchesNetwork for RequestBatchesNetworkImpl {
 mod tests {
     use super::*;
     use crypto::{Hash, NetworkKeyPair};
-    use fastcrypto::traits::KeyPair;
     use itertools::Itertools;
     use rand::rngs::StdRng;
     use std::collections::HashMap;

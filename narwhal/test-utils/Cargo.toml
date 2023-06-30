@@ -12,6 +12,7 @@ indexmap = { version = "2.0.0", features = ["serde"] }
 itertools = "0.10.5"
 multiaddr = "0.17.0"
 rand = "0.8.5"
+rand_core = "0.6"
 serde = { version = "1.0.144", features = ["derive"] }
 tempfile = "3.4.0"
 thiserror = "1.0.35"
@@ -22,7 +23,6 @@ tracing = "0.1.36"
 once_cell = "1.16"
 
 config = { path = "../config", package = "narwhal-config" }
-fastcrypto = { workspace = true }
 crypto = { path = "../crypto", package = "narwhal-crypto" }
 executor = { path = "../executor", package = "narwhal-executor" }
 network = { path = "../network", package = "narwhal-network" }

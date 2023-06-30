@@ -31,7 +31,6 @@ use consensus::dag::Dag;
 use crypto::{
     EncodeDecodeBase64, Hash, KeyPair, NetworkKeyPair, NetworkPublicKey, SignatureService,
 };
-use fastcrypto::traits::{KeyPair as _, ToFromBytes};
 use futures::{stream::FuturesUnordered, StreamExt};
 use mysten_network::{multiaddr::Protocol, Multiaddr};
 use network::failpoints::FailpointsMakeCallbackHandler;
@@ -309,7 +308,7 @@ impl Primary {
         loop {
             let network_result = anemo::Network::bind(addr.clone())
                 .server_name("narwhal")
-                .private_key(network_signer.copy().private().0.to_bytes())
+                .private_key(network_signer.copy().private().to_bytes())
                 .config(anemo_config.clone())
                 .outbound_request_layer(outbound_layer.clone())
                 .start(service.clone());

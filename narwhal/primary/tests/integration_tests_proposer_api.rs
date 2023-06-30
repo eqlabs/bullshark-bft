@@ -6,7 +6,6 @@ use config::{AuthorityIdentifier, CommitteeBuilder, Epoch, Parameters};
 use consensus::consensus::ConsensusRound;
 use consensus::dag::Dag;
 use crypto::{Hash, KeyPair};
-use fastcrypto::traits::KeyPair as _;
 use narwhal_primary as primary;
 use narwhal_primary::NUM_SHUTDOWN_RECEIVERS;
 use network::client::NetworkClient;

@@ -6,7 +6,6 @@ use std::{collections::BTreeMap, sync::Arc, time::Duration};
 use anemo::{PeerId, Request};
 use async_trait::async_trait;
 use crypto::{NetworkKeyPair, NetworkPublicKey};
-use fastcrypto::traits::KeyPair;
 use mysten_common::sync::notify_once::NotifyOnce;
 use parking_lot::RwLock;
 use tokio::{select, time::sleep};
@@ -56,7 +55,7 @@ impl NetworkClient {
     }
 
     pub fn new_from_keypair(primary_network_keypair: &NetworkKeyPair) -> Self {
-        Self::new(PeerId(primary_network_keypair.public().0.into()))
+        Self::new(PeerId(primary_network_keypair.public().to_bytes()))
     }
 
     pub fn new_with_empty_id() -> Self {
@@ -140,7 +139,7 @@ impl PrimaryToWorkerClient for NetworkClient {
         request: WorkerSynchronizeMessage,
     ) -> Result<(), LocalClientError> {
         let c = self
-            .get_primary_to_worker_handler(PeerId(worker_name.0.into()))
+            .get_primary_to_worker_handler(PeerId(worker_name.to_bytes()))
             .await?;
         select! {
             resp = c.synchronize(Request::new(request)) => {
@@ -159,7 +158,7 @@ impl PrimaryToWorkerClient for NetworkClient {
         request: FetchBatchesRequest,
     ) -> Result<FetchBatchesResponse, LocalClientError> {
         let c = self
-            .get_primary_to_worker_handler(PeerId(worker_name.0.into()))
+            .get_primary_to_worker_handler(PeerId(worker_name.to_bytes()))
             .await?;
         select! {
             resp = c.fetch_batches(Request::new(request)) => {

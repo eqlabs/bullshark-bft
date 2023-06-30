@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 use config::{CommitteeBuilder, Epoch, WorkerIndex, WorkerInfo};
 use crypto::{Hash, KeyPair, NetworkKeyPair};
-use fastcrypto::traits::KeyPair as _;
 use mysten_network::Multiaddr;
 use rand::{prelude::StdRng, thread_rng, SeedableRng};
 use serde_reflection::{Registry, Result, Samples, Tracer, TracerConfig};

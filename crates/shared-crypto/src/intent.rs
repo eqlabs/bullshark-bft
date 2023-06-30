@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use eyre::eyre;
-use fastcrypto::encoding::decode_bytes_hex;
 use serde::{Deserialize, Serialize};
 use serde_repr::Deserialize_repr;
 use serde_repr::Serialize_repr;
@@ -88,7 +87,7 @@ pub struct Intent {
 impl FromStr for Intent {
     type Err = eyre::Report;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let s: Vec<u8> = decode_bytes_hex(s).map_err(|_| eyre!("Invalid Intent"))?;
+        let s: Vec<u8> = hex::decode(s).map_err(|_| eyre!("Invalid Intent"))?;
         if s.len() != 3 {
             return Err(eyre!("Invalid Intent"));
         }

@@ -1,6 +1,8 @@
-use crate::{traits::EncodeDecodeBase64, CurrentNetwork};
+use crate::{traits::EncodeDecodeBase64, CurrentNetwork, NetworkKeyPair};
 
-use std::{cmp::Ordering, fmt::Display, fs::File, io, io::Write, ops::Deref};
+use std::{
+    cmp::Ordering, fmt::Display, fs::File, io, io::Write, ops::Deref, sync::atomic::AtomicU32,
+};
 
 use base64ct::{Base64, Encoding};
 use eyre::eyre;
@@ -10,6 +12,10 @@ use snarkvm_console::{
     account::Address,
     prelude::{Compare, Equal, FromBytes, ToBytes},
 };
+
+lazy_static::lazy_static! {
+    static ref COUNTER: AtomicU32 = AtomicU32::new(0);
+}
 
 /// Convenience struct wrapping a BLS12377 key pair.
 #[derive(Clone, Debug)]
@@ -55,6 +61,14 @@ impl KeyPair {
 
     pub fn private(&self) -> &PrivateKey {
         &self.private
+    }
+
+    pub fn to_network_keypair(&self) -> NetworkKeyPair {
+        let kp = self
+            .private()
+            .to_ed25519(COUNTER.fetch_add(1, std::sync::atomic::Ordering::SeqCst))
+            .unwrap();
+        NetworkKeyPair(kp)
     }
 }
 

@@ -14,6 +14,7 @@ cfg-if = "1.0.0"
 clap = "2.34"
 futures = "0.3.24"
 rand = "0.8.5"
+rand_core = "0.6.4"
 thiserror = "1.0.35"
 tokio = { workspace = true, features = ["full"] }
 tokio-stream = "0.1.10"
@@ -25,7 +26,6 @@ anyhow = "1.0.71"
 
 config = { path = "../config", package = "narwhal-config" }
 consensus = { path = "../consensus", package = "narwhal-consensus" }
-fastcrypto.workspace = true
 crypto = { path = "../crypto", package = "narwhal-crypto" }
 executor = { path = "../executor", package = "narwhal-executor" }
 network = { path = "../network", package = "narwhal-network" }
