@@ -228,7 +228,7 @@ impl Header {
             payload,
             parents,
             digest: Default::default(),
-            created_at: Default::default(),
+            created_at: now(),
         })
     }
 
@@ -313,7 +313,7 @@ impl HeaderV1 {
             author,
             round: 0,
             epoch: 0,
-            created_at: 0,
+            created_at: now(),
             payload: IndexMap::new(),
             parents: BTreeSet::new(),
             digest: OnceCell::default(),
@@ -409,7 +409,7 @@ impl HeaderV1Builder {
             author: self.author.unwrap(),
             round: self.round.unwrap(),
             epoch: self.epoch.unwrap(),
-            created_at: self.created_at.unwrap_or(0),
+            created_at: self.created_at.unwrap_or(now()),
             payload: self.payload.unwrap(),
             parents: self.parents.unwrap(),
             digest: OnceCell::default(),
@@ -426,7 +426,7 @@ impl HeaderV1Builder {
             author: self.author.unwrap_or_default(),
             round: self.round.unwrap_or_default(),
             epoch: self.epoch.unwrap_or_default(),
-            created_at: self.created_at.unwrap_or(0),
+            created_at: self.created_at.unwrap_or(now()),
             payload: self.payload.clone().unwrap_or_default(),
             parents: self.parents.clone().unwrap_or_default(),
             digest: self.digest.unwrap_or_default(),
