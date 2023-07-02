@@ -75,7 +75,7 @@ impl Worker {
         store: DBMap<BatchDigest, Batch>,
         tx_shutdown: &mut PreSubscribedBroadcastSender,
     ) -> Vec<JoinHandle<()>> {
-        let worker_name = keypair.public().clone();
+        let worker_name = keypair.public();
         let worker_peer_id = PeerId(worker_name.0.to_bytes());
         info!("Boot worker node with id {} peer id {}", id, worker_peer_id,);
 

@@ -466,7 +466,7 @@ impl WorkerNodeDetails {
                 self.worker_cache.clone(),
                 client,
                 &worker_store,
-                TrivialTransactionValidator::default(),
+                TrivialTransactionValidator,
             )
             .await
             .unwrap();

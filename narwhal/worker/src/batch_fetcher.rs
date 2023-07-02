@@ -490,7 +490,7 @@ mod tests {
     fn test_pk(i: u8) -> NetworkPublicKey {
         use rand::SeedableRng;
         let mut rng = StdRng::from_seed([i; 32]);
-        NetworkKeyPair::generate(&mut rng).public().clone()
+        NetworkKeyPair::generate(&mut rng).public()
     }
 
     fn test_pks(i: &[u8]) -> Vec<NetworkPublicKey> {

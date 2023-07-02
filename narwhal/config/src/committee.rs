@@ -493,7 +493,7 @@ mod tests {
                     keypair.public().clone(),
                     1,
                     Multiaddr::empty(),
-                    network_keypair.public().clone(),
+                    network_keypair.public(),
                 );
 
                 (keypair.public().clone(), a)

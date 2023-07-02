@@ -71,7 +71,7 @@ fn get_registry() -> Result<Registry> {
         .parents(certificates.iter().map(|x| x.digest()).collect())
         .build();
 
-    let worker_pk = network_keys[0].public().clone();
+    let worker_pk = network_keys[0].public();
     let certificate =
         Certificate::new_unsigned(&committee, Header::V1(header.clone()), vec![]).unwrap();
     let signature = private

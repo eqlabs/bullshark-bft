@@ -114,7 +114,7 @@ async fn get_network_peers_from_admin_server() {
         committee.clone(),
         worker_cache.clone(),
         worker_1_parameters.clone(),
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client_1,
         store.batch_store,
         &mut tx_shutdown_worker,
