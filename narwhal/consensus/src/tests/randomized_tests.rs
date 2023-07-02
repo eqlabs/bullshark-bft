@@ -23,7 +23,7 @@ use tokio::sync::mpsc::channel;
 use types::CertificateAPI;
 use types::HeaderAPI;
 use types::Round;
-use types::{Certificate, CertificateDigest};
+use types::{Certificate, CertificateDigest, Header};
 
 #[derive(Copy, Clone, Debug)]
 pub struct FailureModes {
@@ -153,7 +153,26 @@ fn test_determinism() {
             generate_randomised_dag(committee_size, number_of_rounds, seed, failure_modes);
 
         assert_eq!(committee_1, committee_2);
-        assert_eq!(dag_1, dag_2);
+
+        // assert_eq!(dag_1, dag_2);
+        {
+            for (dag_1_cert, dag_2_cert) in dag_1.iter().zip(dag_2.iter()) {
+                // Check the certificate fields that don't rely on a timestamp.
+                let (Certificate::V1(cert_1), Certificate::V1(cert_2)) = (dag_1_cert, dag_2_cert);
+                assert_eq!(cert_1.round(), cert_2.round());
+                assert_eq!(cert_1.epoch(), cert_2.epoch());
+                assert_eq!(cert_1.origin(), cert_2.origin());
+
+                // Check the fields that don't rely on a timestamp within the header.
+                // Unfortunately, the parents can't be checked as they are certificate digests and
+                // those rely on the timestamps as well.
+                let Header::V1(header_1) = cert_1.header();
+                let Header::V1(header_2) = cert_2.header();
+                assert_eq!(header_1.author(), header_2.author());
+                assert_eq!(header_1.round(), header_2.round());
+                assert_eq!(header_1.epoch(), header_2.epoch());
+            }
+        }
 
         // Compare the creation of execution plan based on the provided DAG
         let execution_plan_1 = create_execution_plan(dag_1.clone(), seed);
