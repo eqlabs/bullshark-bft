@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use config::Parameters;
-use fastcrypto::traits::KeyPair;
 use narwhal_node::execution_state::SimpleExecutionState;
 use narwhal_node::primary_node::PrimaryNode;
 use narwhal_node::worker_node::WorkerNodes;
@@ -65,7 +64,7 @@ async fn simple_primary_worker_node_start_stop() {
             worker_cache,
             client,
             &store,
-            TrivialTransactionValidator::default(),
+            TrivialTransactionValidator,
         )
         .await
         .unwrap();

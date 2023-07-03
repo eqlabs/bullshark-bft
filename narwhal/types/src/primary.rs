@@ -23,7 +23,6 @@ use rand::{rngs::StdRng, thread_rng, SeedableRng};
 use roaring::RoaringBitmap;
 use serde::{Deserialize, Serialize};
 use serde_with::serde_as;
-use snarkvm_console::prelude::ToBytes;
 use std::{
     collections::{BTreeMap, BTreeSet, VecDeque},
     fmt,
@@ -353,9 +352,7 @@ impl Hash for UnsignedHeaderV1 {
 
     fn digest(&self) -> HeaderDigest {
         let mut hasher = crypto::DefaultHashFunction::new();
-        // SAFETY: this conversion can't fail, the result is just a side-effect of the `ToBytes`
-        // trait design in snarkVM.
-        hasher.update(&self.author.0.to_bytes_le().unwrap());
+        hasher.update(self.author.0.to_le_bytes());
         hasher.update(self.round.to_le_bytes());
         hasher.update(self.epoch.to_le_bytes());
         hasher.update(self.created_at.to_le_bytes());

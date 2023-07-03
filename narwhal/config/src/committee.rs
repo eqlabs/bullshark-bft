@@ -474,7 +474,6 @@ impl CommitteeBuilder {
 mod tests {
     use crate::{Authority, Committee};
     use crypto::{KeyPair, NetworkKeyPair, PublicKey};
-    use fastcrypto::traits::KeyPair as _;
     use mysten_network::Multiaddr;
     use rand::thread_rng;
     use std::collections::BTreeMap;
@@ -494,7 +493,7 @@ mod tests {
                     keypair.public().clone(),
                     1,
                     Multiaddr::empty(),
-                    network_keypair.public().clone(),
+                    network_keypair.public(),
                 );
 
                 (keypair.public().clone(), a)

@@ -7,7 +7,6 @@ use crate::{
 };
 use anemo::PeerId;
 use crypto::Hash;
-use fastcrypto::traits::KeyPair;
 use mockall::*;
 use std::sync::Arc;
 use test_utils::{

@@ -8,7 +8,6 @@
     rust_2021_compatibility
 )]
 
-use fastcrypto::ed25519;
 use snarkvm_console::network::Testnet3;
 
 // This re-export allows using the trait-defined APIs
@@ -16,16 +15,15 @@ use shared_crypto::intent::{Intent, IntentMessage, IntentScope};
 
 mod hash;
 mod keypair;
+mod network_keypair;
 mod signature;
 mod traits;
 
 pub use hash::*;
 pub use keypair::*;
+pub use network_keypair::*;
 pub use signature::*;
 pub use traits::*;
-
-pub type NetworkPublicKey = ed25519::Ed25519PublicKey;
-pub type NetworkKeyPair = ed25519::Ed25519KeyPair;
 
 type CurrentNetwork = Testnet3;
 
@@ -33,11 +31,6 @@ type CurrentNetwork = Testnet3;
 pub fn to_intent_message<T>(value: T) -> IntentMessage<T> {
     IntentMessage::new(Intent::narwhal_app(IntentScope::HeaderDigest), value)
 }
-
-// type KeyPair = IDK, depends what functionality they use of it, seems unnecessary;
-//
-// type NetworkPublicKey = snarkvm_console::account::Address; (check if theres a reason they had to make a different PublicKey for the Network);
-// type NetworkKeyPair = IDK, similar to above not sure what functionality they need;
 
 // pub type DefaultHashFunction = snarkvm_console::algorithms::BHP256<CurrentEnvironment>;
 // pub const DIGEST_LENGTH: usize = snarkvm_console::types::Field::<CurrentEnvironment>::SIZE_IN_BYTES;

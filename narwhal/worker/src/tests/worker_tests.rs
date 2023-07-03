@@ -9,7 +9,6 @@ use bytes::Bytes;
 use consensus::consensus::ConsensusRound;
 use consensus::dag::Dag;
 use crypto::Hash;
-use fastcrypto::encoding::{Encoding, Hex};
 use futures::stream::FuturesOrdered;
 use futures::StreamExt;
 use primary::{NetworkModel, Primary, CHANNEL_CAPACITY, NUM_SHUTDOWN_RECEIVERS};
@@ -166,7 +165,7 @@ async fn handle_remote_clients_transactions() {
         committee.clone(),
         worker_cache.clone(),
         parameters,
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client.clone(),
         batch_store,
         &mut tx_shutdown,
@@ -279,7 +278,7 @@ async fn handle_local_clients_transactions() {
         committee.clone(),
         worker_cache.clone(),
         parameters,
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client.clone(),
         batch_store,
         &mut tx_shutdown,
@@ -426,14 +425,14 @@ async fn get_network_peers_from_admin_server() {
         committee.clone(),
         worker_cache.clone(),
         worker_1_parameters.clone(),
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client_1.clone(),
         store.batch_store.clone(),
         &mut tx_shutdown,
     );
 
-    let primary_1_peer_id = Hex::encode(authority_1.network_keypair().copy().public().0.as_bytes());
-    let worker_1_peer_id = Hex::encode(worker_1_keypair.copy().public().0.as_bytes());
+    let primary_1_peer_id = hex::encode(authority_1.network_keypair().copy().public().0.as_bytes());
+    let worker_1_peer_id = hex::encode(worker_1_keypair.copy().public().0.as_bytes());
 
     // Wait for tasks to start
     tokio::time::sleep(Duration::from_secs(1)).await;
@@ -547,7 +546,7 @@ async fn get_network_peers_from_admin_server() {
         committee.clone(),
         worker_cache.clone(),
         worker_2_parameters.clone(),
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client_2,
         store.batch_store,
         &mut tx_shutdown_worker,
@@ -557,8 +556,8 @@ async fn get_network_peers_from_admin_server() {
     // have  a chance to connect to each other.
     tokio::time::sleep(Duration::from_secs(5)).await;
 
-    let primary_2_peer_id = Hex::encode(authority_2.network_keypair().copy().public().0.as_bytes());
-    let worker_2_peer_id = Hex::encode(worker_2_keypair.copy().public().0.as_bytes());
+    let primary_2_peer_id = hex::encode(authority_2.network_keypair().copy().public().0.as_bytes());
+    let worker_2_peer_id = hex::encode(worker_2_keypair.copy().public().0.as_bytes());
 
     // Test getting all known peers for worker 2 (worker at index 0 for primary 2)
     let resp = reqwest::get(format!(

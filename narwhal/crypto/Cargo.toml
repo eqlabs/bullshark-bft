@@ -7,10 +7,11 @@ edition = "2021"
 publish = false
 
 [dependencies]
-fastcrypto.workspace = true
+ed25519-dalek = { version = "1.0.1", features = ["serde"] }
 ark-bls12-377 = { version = "0.3.0", features = ["std"], optional = true }
 eyre = "0.6.8"
 rand = { version = "0.8.5", features = ["std"] }
+rand_core = { version = "0.6", features = ["std"] }
 serde = { version = "1.0.144", features = ["derive"] }
 serde_bytes = "0.11.7"
 serde_with = "2.1.0"
@@ -20,9 +21,11 @@ bcs = "0.1.4"
 base64ct = "1.6"
 proptest = "1.0.0"
 proptest-derive = "0.3.0"
+lazy_static = "1.4.0"
 
 [dependencies.snarkvm-console]
-version = "0.9.14"
+version = "=0.12.6"
+features = ["ed25519"]
 
 [dependencies.bitvec]
 version = "1.0"

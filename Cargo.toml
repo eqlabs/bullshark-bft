@@ -53,8 +53,6 @@ strip = 'none'
 [workspace.dependencies]
 axum = { version = "0.6.18", default-features = false, features = ["headers", "tokio", "http1", "http2", "json", "matched-path", "original-uri", "form", "query"] }
 tokio = "1.27.0"
-fastcrypto = { git = "https://github.com/MystenLabs/fastcrypto", rev = "84fd7c7428c5f59185aecc56a2e0a006e8e07de1" }
-fastcrypto-zkp = { git = "https://github.com/MystenLabs/fastcrypto", rev = "84fd7c7428c5f59185aecc56a2e0a006e8e07de1", package = "fastcrypto-zkp" }
 
 # metrics
 metrics = "0.20"

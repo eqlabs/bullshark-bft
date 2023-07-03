@@ -19,7 +19,6 @@ use anemo_tower::{
 use anemo_tower::{rate_limit, set_header::SetResponseHeaderLayer};
 use config::{Authority, AuthorityIdentifier, Committee, Parameters, WorkerCache, WorkerId};
 use crypto::{NetworkKeyPair, NetworkPublicKey};
-use fastcrypto::traits::KeyPair;
 use mysten_network::{multiaddr::Protocol, Multiaddr};
 use network::client::NetworkClient;
 use network::epoch_filter::{AllowedEpoch, EPOCH_HEADER_KEY};
@@ -76,7 +75,7 @@ impl Worker {
         store: DBMap<BatchDigest, Batch>,
         tx_shutdown: &mut PreSubscribedBroadcastSender,
     ) -> Vec<JoinHandle<()>> {
-        let worker_name = keypair.public().clone();
+        let worker_name = keypair.public();
         let worker_peer_id = PeerId(worker_name.0.to_bytes());
         info!("Boot worker node with id {} peer id {}", id, worker_peer_id,);
 
@@ -223,7 +222,7 @@ impl Worker {
         loop {
             let network_result = anemo::Network::bind(addr.clone())
                 .server_name("narwhal")
-                .private_key(worker.keypair.copy().private().0.to_bytes())
+                .private_key(worker.keypair.copy().private().to_bytes())
                 .config(anemo_config.clone())
                 .outbound_request_layer(outbound_layer.clone())
                 .start(service.clone());

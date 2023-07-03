@@ -261,7 +261,6 @@ impl RequestBatchesNetwork for RequestBatchesNetworkImpl {
 mod tests {
     use super::*;
     use crypto::{Hash, NetworkKeyPair};
-    use fastcrypto::traits::KeyPair;
     use itertools::Itertools;
     use rand::rngs::StdRng;
     use std::collections::HashMap;
@@ -491,7 +490,7 @@ mod tests {
     fn test_pk(i: u8) -> NetworkPublicKey {
         use rand::SeedableRng;
         let mut rng = StdRng::from_seed([i; 32]);
-        NetworkKeyPair::generate(&mut rng).public().clone()
+        NetworkKeyPair::generate(&mut rng).public()
     }
 
     fn test_pks(i: &[u8]) -> Vec<NetworkPublicKey> {

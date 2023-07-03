@@ -177,7 +177,6 @@ impl<Value: Hash + Clone> Peers<Value> {
 mod tests {
     use crate::block_synchronizer::peers::Peers;
     use crypto::{Digest, Hash, NetworkKeyPair};
-    use fastcrypto::traits::KeyPair as _;
     use rand::{
         rngs::{SmallRng, StdRng},
         SeedableRng,

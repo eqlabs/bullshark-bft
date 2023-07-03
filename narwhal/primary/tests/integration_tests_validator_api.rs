@@ -5,7 +5,6 @@ use config::{AuthorityIdentifier, BlockSynchronizerParameters, Committee, Parame
 use consensus::consensus::ConsensusRound;
 use consensus::dag::Dag;
 use crypto::Hash;
-use fastcrypto::traits::KeyPair as _;
 use indexmap::IndexMap;
 use narwhal_primary as primary;
 use narwhal_primary::NUM_SHUTDOWN_RECEIVERS;
@@ -144,7 +143,7 @@ async fn test_get_collections() {
         committee.clone(),
         worker_cache.clone(),
         parameters.clone(),
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client,
         store.batch_store.clone(),
         &mut tx_shutdown_worker,
@@ -370,7 +369,7 @@ async fn test_remove_collections() {
         committee.clone(),
         worker_cache.clone(),
         parameters.clone(),
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         network_client,
         store.batch_store.clone(),
         &mut tx_shutdown_worker,
@@ -1032,7 +1031,7 @@ async fn test_get_collections_with_missing_certificates() {
         committee.clone(),
         worker_cache.clone(),
         parameters_1.clone(),
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client_1,
         store_primary_1.batch_store,
         &mut tx_shutdown_worker_1,
@@ -1093,7 +1092,7 @@ async fn test_get_collections_with_missing_certificates() {
         committee.clone(),
         worker_cache.clone(),
         parameters_2.clone(),
-        TrivialTransactionValidator::default(),
+        TrivialTransactionValidator,
         client_2,
         store_primary_2.batch_store,
         &mut tx_shutdown_worker_2,

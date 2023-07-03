@@ -6,7 +6,6 @@ use anemo::PeerId;
 use arc_swap::{ArcSwap, ArcSwapOption};
 use config::{Committee, Parameters, WorkerCache, WorkerId};
 use crypto::{NetworkKeyPair, PublicKey};
-use fastcrypto::traits::KeyPair;
 use network::client::NetworkClient;
 use std::collections::HashMap;
 use std::sync::Arc;

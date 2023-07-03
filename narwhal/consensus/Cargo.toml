@@ -29,7 +29,6 @@ tracing = "0.1.36"
 config = { path = "../config", package = "narwhal-config" }
 crypto = { path = "../crypto", package = "narwhal-crypto" }
 dag = { path = "../dag", package = "narwhal-dag" }
-fastcrypto = { workspace = true }
 storage = { path = "../storage", package = "narwhal-storage" }
 store = { path = "../../crates/typed-store", package = "typed-store" }
 types = { path = "../types", package = "narwhal-types" }
