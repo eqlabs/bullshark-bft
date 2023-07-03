@@ -12,7 +12,6 @@ use crate::{
     synchronizer::Synchronizer,
     BlockRemover,
 };
-
 use anemo::{codegen::InboundRequestLayer, types::Address};
 use anemo::{types::PeerInfo, Network, PeerId};
 use anemo_tower::auth::RequireAuthorizationLayer;
@@ -59,7 +58,6 @@ use tokio::{
 };
 use tower::ServiceBuilder;
 use tracing::{debug, error, info, instrument, warn};
-
 use types::{
     ensure,
     error::{DagError, DagResult},

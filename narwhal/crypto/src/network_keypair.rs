@@ -1,3 +1,4 @@
+use crate::EncodeDecodeBase64;
 use base64ct::Encoding;
 use ed25519::SecretKey;
 use ed25519_dalek as ed25519;
@@ -65,6 +66,17 @@ impl NetworkPublicKey {
     }
 }
 
+impl EncodeDecodeBase64 for NetworkKeyPair {
+    fn encode_base64(&self) -> String {
+        base64ct::Base64::encode_string(&self.0.to_bytes())
+    }
+
+    fn decode_base64(value: &str) -> Result<Self, eyre::Report> {
+        let bytes = base64ct::Base64::decode_vec(value).map_err(|e| eyre::eyre!(e.to_string()))?;
+        Ok(Self(ed25519::Keypair::from_bytes(&bytes)?))
+    }
+}
+
 impl NetworkKeyPair {
     pub fn generate<R>(rng: &mut R) -> Self
     where
@@ -93,16 +105,5 @@ impl NetworkKeyPair {
 
     pub fn copy(&self) -> Self {
         Self(ed25519::Keypair::from_bytes(&self.0.to_bytes()).unwrap())
-    }
-
-    pub fn encode_base64(&self) -> String {
-        let bytes = self.0.to_bytes();
-        base64ct::Base64::encode_string(&bytes)
-    }
-
-    pub fn decode_base64(string: &str) -> Result<Self, eyre::Report> {
-        let bytes = base64ct::Base64::decode_vec(string).map_err(|e| eyre::eyre!(e.to_string()))?;
-        let kp = ed25519::Keypair::from_bytes(&bytes)?;
-        Ok(Self(kp))
     }
 }
